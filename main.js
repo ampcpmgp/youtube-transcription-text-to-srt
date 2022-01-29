@@ -27,7 +27,7 @@ $text.addEventListener("input", (e) => {
         if (nextLine) {
           acc.push(getSentence(acc.length + 1));
         } else {
-          currSentense.lastTime = currSentense.firstTime.replace(/^\d\d/, "99");
+          currSentense.lastTime = `99:59:59,999`;
         }
         currSentense.lines.push(cur);
       }
