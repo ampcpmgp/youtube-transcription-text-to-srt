@@ -3,14 +3,15 @@ var $result = document.getElementById("result");
 var $resultSuccess = document.getElementById("resultSuccess");
 var $resultError = document.getElementById("resultError");
 var curNum = 1;
-var sentences = [];
 
 $text.addEventListener("input", (e) => {
+  $result.value = "";
+
   const value = e.currentTarget.value;
   const lines = value.split("\n");
 
   /** @type {import(".").Sentense[]} */
-  sentences = lines.reduce(
+  const sentences = lines.reduce(
     (acc, cur, i) => {
       if (/(\d\d):(\d\d)/.test(cur)) {
         const prevSentense = acc[acc.length - 2];
@@ -53,16 +54,22 @@ $text.addEventListener("input", (e) => {
 
   console.log("filtered log result", result);
 
-  $result.textContent = result;
+  $result.value = result;
 
-  validateSrt(result);
+  validateSrt(result, sentences.length);
 });
 
-$result.addEventListener("input", (e) => validateSrt(e.currentTarget.value));
+$result.addEventListener("input", (e) => {
+  const value = e.currentTarget.value;
+  const lines = value.split("\n");
+  const length = lines.reverse().find((item) => /^\d+$/.test(item)) - 0;
+
+  validateSrt(value, length);
+});
 
 mock();
 
-function validateSrt(text) {
+function validateSrt(text, length) {
   // parser
   try {
     $resultSuccess.style.display = "none";
@@ -74,11 +81,13 @@ function validateSrt(text) {
     console.log("filtered log srtResult", srtResult);
 
     if (srtResult.length === 0) {
-      throw new Error();
+      throw new Error(`srtResult.length: ${srtResult.length}`);
     }
 
-    if (srtResult.length !== sentences.length) {
-      throw new Error();
+    if (srtResult.length !== length) {
+      throw new Error(
+        `srtResult.length: ${srtResult.length}, length: ${length}`
+      );
     }
 
     $resultSuccess.style.display = "initial";
