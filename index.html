@@ -32,9 +32,19 @@ Hello,
 Youtube transcription text to SRT!</textarea
     >
 
-    <label for="result">Result</label>
+    <label for="result">
+      Result:
+
+      <span id="resultSuccess" style="color: green; display: none">
+        Success!
+      </span>
+
+      <span id="resultError" style="color: red; display: none">Error!</span>
+    </label>
+
     <textarea name="result" id="result" style="min-height: 360px"></textarea>
 
+    <script src="./libs/str-parser-2.js"></script>
     <script module src="main.js?v0.0.2"></script>
   </body>
 </html>

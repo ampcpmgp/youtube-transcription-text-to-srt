@@ -1,5 +1,7 @@
 var $text = document.getElementById("text");
 var $result = document.getElementById("result");
+var $resultSuccess = document.getElementById("resultSuccess");
+var $resultError = document.getElementById("resultError");
 var curNum = 1;
 
 $text.addEventListener("input", (e) => {
@@ -48,7 +50,33 @@ $text.addEventListener("input", (e) => {
     })
     .join("\n");
 
+  console.log("filtered log result", result);
+
   $result.textContent = result;
+
+  // parser
+  try {
+    $resultSuccess.style.display = "none";
+    $resultError.style.display = "none";
+
+    const parser = new srtParser2();
+    const srtResult = parser.fromSrt(result);
+
+    console.log("filtered log srtResult", srtResult);
+
+    if (srtResult.length === 0) {
+      throw new Error();
+    }
+
+    if (srtResult.length !== sentences.length) {
+      throw new Error();
+    }
+
+    $resultSuccess.style.display = "initial";
+  } catch (error) {
+    console.log("filtered log error", error);
+    $resultError.style.display = "initial";
+  }
 });
 
 mock();

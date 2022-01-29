@@ -1,0 +1,30 @@
+{
+  "name": "youtube-transcription-text-to-srt",
+  "version": "1.0.0",
+  "description": "https://ampcpmgp.github.io/youtube-transcription-text-to-srt/index.html",
+  "main": "main.js",
+  "scripts": {
+    "build": "npm run build:tsc && npm run build:rollup",
+    "build:tsc": "tsc ./node_modules/srt-parser-2/src/index.ts --lib esnext --outDir ./dist --target esnext",
+    "build:rollup": "rollup dist/index.js --format umd --name srtParser2 --file libs/str-parser-2.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ampcpmgp/youtube-transcription-text-to-srt.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ampcpmgp/youtube-transcription-text-to-srt/issues"
+  },
+  "homepage": "https://github.com/ampcpmgp/youtube-transcription-text-to-srt#readme",
+  "dependencies": {
+    "srt-parser-2": "^1.1.7",
+    "str-validator": "^1.0.0"
+  },
+  "devDependencies": {
+    "rollup": "^2.66.1",
+    "typescript": "^4.5.5"
+  }
+}
