@@ -5,7 +5,27 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Youtube Transcription Text to SRT</title>
   </head>
-  <body>
+  <body
+    style="
+      display: grid;
+      align-content: start;
+      gap: 1rem;
+      grid-template-rows: repeat(4, auto) 1fr;
+    "
+  >
     <h1>Youtube Transcription Text to SRT</h1>
+
+    <label for="text">Input transcription below</label>
+    <textarea
+      name="text"
+      id="text"
+      rows="10"
+      style="min-height: 200px"
+    ></textarea>
+
+    <label for="result">Result</label>
+    <textarea name="result" id="result" style="min-height: 360px"></textarea>
+
+    <script src="main.js"></script>
   </body>
 </html>
