@@ -27,7 +27,7 @@ $text.addEventListener("input", (e) => {
         if (nextLine) {
           acc.push(getSentence(acc.length + 1));
         } else {
-          currSentense.lastTime = `99:59:59,999`;
+          currSentense.lastTime = `99:59:59,000`;
         }
         currSentense.lines.push(cur);
       }
