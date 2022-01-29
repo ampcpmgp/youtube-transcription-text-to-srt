@@ -16,15 +16,19 @@ $text.addEventListener("input", (e) => {
         const minutesStr = cur.replace(/(\d\d):(\d\d)/, "$1");
         const secondsStr = cur.replace(/(\d\d):(\d\d)/, "$2");
 
-        const time = `${minutesStr}:${secondsStr},000`;
+        const time = `00:${minutesStr}:${secondsStr},000`;
 
         if (prevSentense) prevSentense.lastTime = time;
         currSentense.firstTime = time;
       } else {
         const currSentense = acc[acc.length - 1];
-        const nextLine = cur[i + 1];
+        const nextLine = lines[i + 1];
 
-        if (nextLine) acc.push(getSentence(acc.length + 1));
+        if (nextLine) {
+          acc.push(getSentence(acc.length + 1));
+        } else {
+          currSentense.lastTime = currSentense.firstTime.replace(/^\d\d/, "99");
+        }
         currSentense.lines.push(cur);
       }
 
@@ -111,12 +115,12 @@ We wish you a happy year 12.022.
 [Music]
 01:32
 [Music]`;
-
-    var event = new Event("input", {
-      bubbles: true,
-      cancelable: true,
-    });
-
-    $text.dispatchEvent(event);
   }
+
+  var event = new Event("input", {
+    bubbles: true,
+    cancelable: true,
+  });
+
+  $text.dispatchEvent(event);
 }
