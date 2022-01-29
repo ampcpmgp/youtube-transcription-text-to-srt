@@ -3,13 +3,14 @@ var $result = document.getElementById("result");
 var $resultSuccess = document.getElementById("resultSuccess");
 var $resultError = document.getElementById("resultError");
 var curNum = 1;
+var sentences = [];
 
 $text.addEventListener("input", (e) => {
   const value = e.currentTarget.value;
   const lines = value.split("\n");
 
   /** @type {import(".").Sentense[]} */
-  const sentences = lines.reduce(
+  sentences = lines.reduce(
     (acc, cur, i) => {
       if (/(\d\d):(\d\d)/.test(cur)) {
         const prevSentense = acc[acc.length - 2];
@@ -54,13 +55,21 @@ $text.addEventListener("input", (e) => {
 
   $result.textContent = result;
 
+  validateSrt(result);
+});
+
+$result.addEventListener("input", (e) => validateSrt(e.currentTarget.value));
+
+mock();
+
+function validateSrt(text) {
   // parser
   try {
     $resultSuccess.style.display = "none";
     $resultError.style.display = "none";
 
     const parser = new srtParser2();
-    const srtResult = parser.fromSrt(result);
+    const srtResult = parser.fromSrt(text);
 
     console.log("filtered log srtResult", srtResult);
 
@@ -77,8 +86,7 @@ $text.addEventListener("input", (e) => {
     console.log("filtered log error", error);
     $resultError.style.display = "initial";
   }
-});
-
+}
 mock();
 
 /**
